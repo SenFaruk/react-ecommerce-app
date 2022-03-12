@@ -575,6 +575,104 @@ export default App;
 ## buraya kadar chakra-ui kurduk genel görünümümüzü ana hatlarıyla oluşturduk. bundan sonrada Register için gerekli formumuzu hazırlayacağız ve backend le konuşmaya başlıyacagız.
 
 
+-_-_-_-_-_-_- products ekranının hazırlanması -_-_-_-_-_-_-
+
+ana sayfadaki görünümü ayarlamaya başlayalım ana sayfada bizim kart larımız olacak. her bir kart a tıklandıktan sonra o ürünün detayına gitmeye çalışacağız.pages altına products dizini açıyorum.o dizinede index.js 
+## src/pages/Products/index.js
+şimdi bu route tanımlayacağız App.js dosyamızda Home componentini silip Products yaptık
+
+## App.js
+
+import "./App.css";
+
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Signin from "./pages/Auth/Signin";
+import Signup from "./pages/Auth/Signup";
+import Products from "./pages/Products";
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <Navbar />
+
+        <div id="content">
+          <Switch>
+            <Route path="/" exact component={Products} />
+            <Route path="/signin" component={Signin} />
+            <Route path="/signup" component={Signup} />
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+öncelikle görünümü ayarlamaya çalışalım.yani cards componentlerini bir gösterelim ondan sonra APi çağırma işlemlerini yapacağız components dizini altına Card dizini açıyorum
+## src/components/Card/index.js
+
+Chakrayı kullanacağız
+<import { Box, Image, Button } from "@chakra-ui/react";>
+bunları import ettim.Aşağıdaki gibi düzenledim
+
+import React from "react";
+import { Box, Image, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+
+function Card() {
+  return (
+    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="3">
+      <Link to="#/">
+        <Image src="#" alt="product" />
+        <Box p="6">
+          <Box d="plex" alignItems="baseline">
+            12/12/2021
+          </Box>
+          <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
+            Macbook Pro
+          </Box>
+          <Box>100 tl</Box>
+        </Box>
+      </Link>
+      <Button colorScheme="pink">Add to basket</Button>
+    </Box>
+  );
+}
+
+export default Card;
+
+## src/pages/Products/index.js 
+
+## https://chakra-ui.com/docs/components/layout/grid
+sitesinden grid yapısını copyalayıp componentinde kullandım
+ve Card componentlerini import ettim
+
+import React from "react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import Card from "../../components/Card";
+
+function Products() {
+  return (
+    <div>
+      <Card />
+
+      <Grid templateColumns="repeat(3, 1fr)" gap={4}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </Grid>
+    </div>
+  );
+}
+
+export default Products;
 
 
 
